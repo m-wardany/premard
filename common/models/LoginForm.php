@@ -12,9 +12,12 @@ class LoginForm extends Model
     public $username;
     public $password;
     public $rememberMe = true;
+    public $reCaptcha;
 
     private $_user;
-
+    
+    public $attempts =  3; 
+    public $days =      10;
 
     /**
      * @inheritdoc
@@ -28,6 +31,8 @@ class LoginForm extends Model
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
+                    
+            [['reCaptcha'], \himiklab\yii2\recaptcha\ReCaptchaValidator::className()]
         ];
     }
 
@@ -56,6 +61,7 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
+            $user_ip = Yii::$app->request->userIP ;
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
         } else {
             return false;
@@ -74,5 +80,37 @@ class LoginForm extends Model
         }
 
         return $this->_user;
+    }
+    
+    
+
+    public function captchaRequired()
+    {    
+        $user_ip = Yii::$app->request->userIP ;
+        $log = ActionLog::find()->where("ip = '{$user_ip}'")->orderBy("date_time DESC")->all();
+        $laslog = count($log)?$log[0]->date_time:date("Y-m-d H:i:s");
+        
+        $datetime1 = date_create($laslog);
+        $datetime2 = date_create(date("Y-m-d H:i:s"));
+        $laslogdate = date_diff($datetime1, $datetime2)->d;
+
+        return count($log) > $this->attempts && $laslogdate < $this->days;
+            
+    }
+    
+    private function addLog()
+    {
+        $log = new ActionLog ;
+        $log->ip = Yii::$app->request->userIP ;
+        $log->date_time = date("Y-m-d H:i:s");
+        $log->save();
+    }
+    
+    public function removeLog()
+    {
+        $logs = ActionLog::find()->where(["ip"=>Yii::$app->request->userIP])->all() ;
+        foreach ($logs as $log) {
+            $log->delete();
+        }
     }
 }

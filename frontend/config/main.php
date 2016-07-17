@@ -9,6 +9,7 @@ $params = array_merge(
 return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
+    'language'=>'en',
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
@@ -28,14 +29,29 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
-        'urlManager' => [
+       'urlManager' => [
+//            'class'=>'common\components\MultiLangUrl',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'rules' => [
+            'rules'=>[
+                '' => 'site/index',
+                '<action:(contact|login|logout|about)>' => 'site/<action>',
+                '<controller:[\w\-]+>'=>'<controller>/index',
+                '<controller:[\w\-]+>/<id:\d+>'=>'<controller>/view',
+                '<controller:[\w\-]+>/<action:[\w\-]+>/<id:\d+>/<sub_category:\d+>'=>'<controller>/<action>',
+                '<controller:[\w\-]+>/<action:[\w\-]+>/<id:\d+>'=>'<controller>/<action>',
+                '<controller:[\w\-]+>/<action:[\w\-]+>'=>'<controller>/<action>',
+            ]
+        ], 
+         'view'=>[
+            'theme' => [
+                'basePath' => '@app/web/themes/front',
+                'baseUrl' => '@web/themes/front',
+                'pathMap' => [
+                    '@app/views' => '@app/web/themes/front',
+                ],
             ],
-        ],
-        */
+        ],   
     ],
     'params' => $params,
 ];

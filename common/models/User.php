@@ -1,6 +1,8 @@
 <?php
 namespace common\models;
 
+use backend\components\UploadImageBehavior;
+use Imagine\Image\ImageInterface;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
@@ -20,6 +22,7 @@ use yii\web\IdentityInterface;
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
+ * @property string $image
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -42,6 +45,21 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             TimestampBehavior::className(),
+            [
+                'class' => UploadImageBehavior::className(),
+                'attributes' => ['image'],
+                'scenarios' => ['insert', 'update'],
+                'path' => '@backend/web/media/profile/{id}',
+                'url' => "@web/media/profile/{id}",                
+                'unlinkOnDelete'=>true,
+                'placeholder' => '@backend/web/themes/metronic/assets/admin/layout/img/avatar.png',
+                'thumbPath' => '@backend/web/media/profile/{id}/thumbnail',
+                'thumbUrl' => "@web/media/profile/{id}/thumbnail",
+                'thumbs' => [
+                    'thumb' => ['width' => 110, 'height' => 110, 'mode'=>  ImageInterface::THUMBNAIL_OUTBOUND],
+                    'icon' => ['width' => 29, 'height' => 29, 'mode'=>  ImageInterface::THUMBNAIL_OUTBOUND],
+                ],
+            ],
         ];
     }
 
@@ -53,6 +71,7 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            ['image', 'image', 'extensions' => 'jpg, jpeg, gif, png','skipOnEmpty'=>true ,'on' => ['insert','update']],
         ];
     }
 

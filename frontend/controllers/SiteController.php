@@ -4,7 +4,6 @@ namespace frontend\controllers;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
-use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
@@ -72,7 +71,29 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $main_slider = \common\models\HomeSlider::find()->all();
+        $experts_in = \common\models\ExpertsIn::find()->all();
+        $portfolio = \common\models\Portfolio::find()->all();
+        $clients = \common\models\Client::find()->all();
+        $contact = new ContactForm();
+        
+        if ($contact->load(Yii::$app->request->post()) && $contact->validate()) {
+            if($contact->sendEmail()){
+                Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
+            } else {
+                Yii::$app->session->setFlash('error', 'There was an error sending email.');
+            }
+
+            return $this->refresh();
+        } else {
+            return $this->render('index',[
+                'main_slider'=>$main_slider,
+                'experts_in'=>$experts_in,
+                'portfolio'=>$portfolio,
+                'clients'=>$clients,
+                'contact'=>$contact
+            ]);
+        }
     }
 
     /**
