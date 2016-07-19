@@ -13,10 +13,10 @@ class Sidebar extends \yii\widgets\Menu {
         return [
             ['label'=>'<div class="sidebar-toggler"></div>','options'=>['class'=>'sidebar-toggler-wrapper']],
             ['label'=>'home','url'=>['/site/index'], 'class'=>'icon-home'],
-            ['label'=>'languages', 'class'=>'icon-home','items'=>[
-                    ['label'=>'view','url'=>['/languages/index'], 'class'=>'icon-eye'],
-                    ['label'=>'add new','url'=>['/languages/create'], 'class'=>'icon-pencil']
-                ]],
+//            ['label'=>'languages', 'class'=>'icon-home','items'=>[
+//                    ['label'=>'view','url'=>['/languages/index'], 'class'=>'icon-eye'],
+//                    ['label'=>'add new','url'=>['/languages/create'], 'class'=>'icon-pencil']
+//                ]],
             ['label'=>'home slider', 'class'=>'icon-home','items'=>[
                     ['label'=>'view','url'=>['/home-slider/index'], 'class'=>'icon-eye'],
                     ['label'=>'add new','url'=>['/home-slider/create'], 'class'=>'icon-pencil']

@@ -32,7 +32,7 @@ class LoginForm extends Model
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
                     
-            [['reCaptcha'], \himiklab\yii2\recaptcha\ReCaptchaValidator::className()]
+            [['reCaptcha'], \himiklab\yii2\recaptcha\ReCaptchaValidator::className(),"on"=>"login"]
         ];
     }
 

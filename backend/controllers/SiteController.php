@@ -77,6 +77,7 @@ class SiteController extends Controller
         }
 
         $model = new LoginForm();
+        $model->setScenario("login");
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         } else {
@@ -113,7 +114,7 @@ class SiteController extends Controller
             
             $model = new LoginForm(); 
             
-            $model->scenario = "login";
+//            $model->scenario = "login";
             
             $model->username = $username;    
             if ($model->load(Yii::$app->request->post()) && $model->validate()) 
@@ -226,7 +227,8 @@ class SiteController extends Controller
     }
     
     public function actionUrl()
-    {         
+    {    
+        Yii::$app->controller->enableCsrfValidation = false;
         $uploadedFile = UploadedFile::getInstanceByName('upload'); 
         $mime = FileHelper::getMimeType($uploadedFile->tempName);
         $file = time()."_".$uploadedFile->name;

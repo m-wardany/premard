@@ -63,6 +63,7 @@ class Page extends \yii\db\ActiveRecord
                 'thumbs' => [
                     'thumb' => ['width' => 300, 'height' => 300, 'mode'=> \Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND],
                     'preview' => ['width' => 100, 'height' => 100, 'mode'=> \Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND],
+                    'header' => ['width' => 1040, 'height' => 400, 'mode'=> \Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND],
                ],
             ],
         ];

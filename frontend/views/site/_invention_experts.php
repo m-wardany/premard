@@ -18,12 +18,12 @@ use yii\helpers\Html;
                 </li>
                 <li>
                     <?= Html::hiddenInput("loader_1",Yii::$app->content->getContent($id,"marketers_value"),['id'=>'loader_1']) ?>
-                    <div class="chart-img"><canvas class="loader2"></canvas></div>
+                    <div class="chart-img"><canvas class="loader1"></canvas></div>
                     <div class="chart-name"><?= Yii::$app->content->getContent($id,"marketers_title") ?> </div>
                 </li>
                 <li>
                     <?= Html::hiddenInput("loader_2",Yii::$app->content->getContent($id,"business_analysts_value"),['id'=>'loader_2']) ?>
-                    <div class="chart-img"><canvas class="loader1"></canvas></div>
+                    <div class="chart-img"><canvas class="loader2"></canvas></div>
                     <div class="chart-name"><?= Yii::$app->content->getContent($id,"business_analysts_title") ?> </div>
                 </li>
                 <li>

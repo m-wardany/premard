@@ -32,7 +32,7 @@
                 ],
                 'urlManagerFrontEnd' => [
                     'class' => 'yii\web\urlManager',
-                    'baseUrl'=>"/premait", //if project in sub directory , if not leave empty string ""
+                    'baseUrl'=>"/premard", //if project in sub directory , if not leave empty string ""
                     'enablePrettyUrl' => true,
                     'showScriptName' => false,
                 ],

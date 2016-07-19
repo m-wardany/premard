@@ -7,8 +7,6 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Contact';
-$this->params['breadcrumbs'][] = $this->title;
 
 $footer_id =  Yii::$app->params['pages']['footer']['id'];
 
