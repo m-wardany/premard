@@ -25,11 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model, 'email') ?>
                 
-                <?= $form->field($model, 'reCaptcha')->widget(
-                            \himiklab\yii2\recaptcha\ReCaptcha::className(),
-                            ['siteKey' => '6LfiRB4TAAAAAOrNGMi89HXfjRE6JW6THpujC0TW','widgetOptions' => ['data-theme'=>'dark']]
-                        )->label(false);
-                ?>
+                <?= $form->field($model, 'reCaptcha')->widget(\himiklab\yii2\recaptcha\ReCaptcha::className(),['widgetOptions' => ['data-theme'=>'dark']])->label(false) ?>
+                
                 <div class="form-group">
                     <?= Html::submitButton('<span class="ladda-label"> Send', ['class' => 'btn btn-primary ladda-button', 'data-style'=>'expand-right']) ?>
                     <?= Html::a('Back to login', ['/site/login'],['class' => 'btn btn-success']) ?>

@@ -27,9 +27,8 @@ class PasswordResetRequestForm extends Model
                 'targetClass' => '\common\models\User',
                 'filter' => ['status' => User::STATUS_ACTIVE],
                 'message' => 'There is no user with such email.'
-            ],
-            [['reCaptcha'], 'required','message'=>Yii::t('app','Please confirm you are not robot')],
-            [['reCaptcha'], ReCaptchaValidator::className()]
+            ],            
+            [['reCaptcha'], \himiklab\yii2\recaptcha\ReCaptchaValidator::className()]
         ];
     }
 

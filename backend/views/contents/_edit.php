@@ -51,8 +51,9 @@ $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]);
     // end translations 
     
     if($image){
-        echo $form->field($image, 'image')->widget(backend\components\FileInput::className(),['thumbnail'=>$image->getThumbUploadUrl("image")]);
-        echo !empty($image->width) || !empty($image->height)?"<p class='alert alert-info'>Best size {$image->width}px * {$image->height}px</p>":"";
+        echo Html::img($image->getThumbUploadUrl('image', 'thumb'), ['class' => 'img-thumbnail']);
+        echo $form->field($image, 'image')->fileInput();
+        echo !empty($image->width) && !empty($image->height)?"<p class='alert alert-info'>Best size {$image->width}px * {$image->height}px</p>":"";
     }
     
     foreach ($models as $model) {
